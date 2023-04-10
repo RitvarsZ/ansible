@@ -4,7 +4,7 @@
 ```
 # Run ansible script
 ```bash
-ansible-playbook local.yml --ask-become-pass
+ansible-playbook local.yml --ask-become-pass --vault-password-file=.pass
 ```
 
 # Vault

@@ -24,26 +24,10 @@
   - install
   - node
 
-- name: npmjs global settings export path in case I don't have dotfiles installed
-  shell: export PATH=~/.local/.npm-global/bin:$PATH
-  tags:
-  - install
-  - node
-  - npm-path
-
 - name: Install N
   npm:
     name: n
     global: true
-  tags:
-    - install
-    - node
-
-- name: Install correct version of Node
-  become: true
-  environment:
-      PATH: ~/.local/.npm-global/bin:{{ ansible_env.PATH }}
-  shell: n 18
   tags:
     - install
     - node
