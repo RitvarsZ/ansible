@@ -26,3 +26,4 @@
     - import_tasks: tasks/docker.yml
     - import_tasks: tasks/rust.yml
     - import_tasks: tasks/alacritty.yml
+    - import_tasks: tasks/fonts.yml

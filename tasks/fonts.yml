@@ -1,0 +1,4 @@
+- name: Install JetBrainsMono
+  shell: curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh
+  tags:
+    - fonts
