@@ -17,4 +17,11 @@ Decrypt:
 ansible-vault decrypt <file>
 ```
 
+# Testing
+```bash
+docker build -t ansible-test .
+docker run ansible-test
+docker exec -it <name> bash
+```
+---
 glorious

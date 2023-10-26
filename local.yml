@@ -14,13 +14,15 @@
       - install
       - core
   tasks:
-    - include_tasks: tasks/ssh.yml
-    - include_tasks: tasks/git.yml
-    - include_tasks: tasks/core-setup.yml
-    - include_tasks: tasks/zsh.yml
-    - include_tasks: tasks/dotfiles.yml
-    - include_tasks: tasks/neovim.yml
-    - include_tasks: tasks/node.yml
-    - include_tasks: tasks/npm.yml
-    - include_tasks: tasks/productivity-tools.yml
-    - include_tasks: tasks/docker.yml
+    - import_tasks: tasks/ssh.yml
+    - import_tasks: tasks/git.yml
+    - import_tasks: tasks/core-setup.yml
+    - import_tasks: tasks/zsh.yml
+    - import_tasks: tasks/dotfiles.yml
+    - import_tasks: tasks/neovim.yml
+    - import_tasks: tasks/node.yml
+    - import_tasks: tasks/npm.yml
+    - import_tasks: tasks/productivity-tools.yml
+    - import_tasks: tasks/docker.yml
+    - import_tasks: tasks/rust.yml
+    - import_tasks: tasks/alacritty.yml
