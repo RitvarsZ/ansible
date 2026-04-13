@@ -1,0 +1,33 @@
+- name: Install GitLab CLI (glab) from .deb
+  become: true
+  tags:
+  - gitlab
+  - install
+  vars:
+    glab_version: "1.92.1"
+    glab_deb: "glab_{{ glab_version }}_linux_amd64.deb"
+    glab_url: "https://gitlab.com/gitlab-org/cli/-/releases/v{{ glab_version }}/downloads/{{ glab_deb }}"
+    glab_path: "/tmp/{{ glab_deb }}"
+
+  block:
+    - name: Download glab .deb package
+      ansible.builtin.get_url:
+        url: "{{ glab_url }}"
+        dest: "{{ glab_path }}"
+        mode: '0644'
+
+    - name: Install glab using dpkg
+      ansible.builtin.command: dpkg -i {{ glab_path }}
+      register: dpkg_result
+      ignore_errors: true
+
+    - name: Fix missing dependencies (if any)
+      ansible.builtin.apt:
+        fix_broken: yes
+        update_cache: yes
+      when: dpkg_result.rc != 0
+
+    - name: Ensure glab is installed
+      ansible.builtin.apt:
+        name: glab
+        state: present
