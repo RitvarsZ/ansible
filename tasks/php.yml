@@ -1,0 +1,66 @@
+- name: Install PHP
+  become: true
+  tags:
+    - php
+    - install
+  vars:
+    php_version: "8.5"
+
+  block:
+    - name: Install required dependencies
+      apt:
+        name:
+          - software-properties-common
+          - ca-certificates
+          - lsb-release
+          - apt-transport-https
+        state: present
+
+    - name: Add PHP repository (Ondřej Surý)
+      apt_repository:
+        repo: deb https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy main
+        state: present
+        update_cache: false
+
+    - name: Install PHP and extensions
+      apt:
+        name:
+          # Core
+          - "php{{ php_version }}"
+          - "php{{ php_version }}-cli"
+          - "php{{ php_version }}-common"
+          - "php{{ php_version }}-fpm"
+          - "php{{ php_version }}-cgi"
+          # Debugging
+          - "php{{ php_version }}-xdebug"
+          # Extensions
+          - "php{{ php_version }}-xml"
+          - "php{{ php_version }}-gd"
+          - "php{{ php_version }}-curl"
+          - "php{{ php_version }}-mbstring"
+          - "php{{ php_version }}-imagick"
+          - "php{{ php_version }}-pspell"
+          - "php{{ php_version }}-imap"
+          - unzip
+        state: present
+
+    - name: Get Composer installer
+      get_url:
+        url: https://getcomposer.org/installer
+        dest: /tmp/composer-setup.php
+        mode: '0755'
+
+    - name: Install Composer
+      command: >
+        php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+      args:
+        creates: /usr/local/bin/composer
+
+    - name: Verify Composer installation
+      command: composer --version
+      register: composer_version
+      changed_when: false
+
+    - name: Show Composer version
+      debug:
+        var: composer_version.stdout

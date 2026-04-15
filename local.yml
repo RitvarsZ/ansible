@@ -28,3 +28,4 @@
     - import_tasks: tasks/alacritty.yml
     - import_tasks: tasks/fonts.yml
     - import_tasks: tasks/glab.yml
+    - import_tasks: tasks/php.yml
