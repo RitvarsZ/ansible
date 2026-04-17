@@ -18,9 +18,9 @@
 
     - name: Add PHP repository (Ondřej Surý)
       apt_repository:
-        repo: deb https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy main
+        repo: deb [trusted=yes] https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble main
         state: present
-        update_cache: false
+        update_cache: true
 
     - name: Install PHP and extensions
       apt:
@@ -56,11 +56,3 @@
       args:
         creates: /usr/local/bin/composer
 
-    - name: Verify Composer installation
-      command: composer --version
-      register: composer_version
-      changed_when: false
-
-    - name: Show Composer version
-      debug:
-        var: composer_version.stdout
